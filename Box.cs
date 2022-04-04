@@ -6,8 +6,8 @@ namespace Breakout
 {
     public class Box
     {
-        public static int Height = 20;
-        public static int Width = 50;
+        public static int Height = 30;
+        public static int Width = 80;
 
         private Rectangle box;
         private Rectangle boxRightEdge;
@@ -15,6 +15,7 @@ namespace Breakout
 
         private SpriteBatch spriteBatch;
         private Texture2D texture;
+ 
 
         public Box(SpriteBatch spriteBatch, Texture2D texture, Vector2 position)
         {
@@ -22,7 +23,7 @@ namespace Breakout
             this.texture = texture;
 
             box = new Rectangle((int)position.X, (int)position.Y, Width, Height);
-            boxRightEdge = new Rectangle((int)box.X + box.Width, (int)box.Y + 3, 0, box.Height - 6);
+            boxRightEdge = new Rectangle((int)box.X + box.Width, (int)box.Y + 2, 0, box.Height - 6);
             boxLeftEdge = new Rectangle((int)box.X, (int)box.Y + 3, 0, box.Height - 6);
         } 
 

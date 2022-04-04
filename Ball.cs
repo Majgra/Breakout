@@ -10,8 +10,8 @@ namespace Breakout
         private const int startPositionX = 390;
         private const int startPositionY = 300;
         private Rectangle ball = new Rectangle(startPositionX, startPositionY, radius, radius);
-        private int x_speed = 1;
-        private int y_speed = 1;
+        private int x_speed = 4;
+        private int y_speed = 4;
 
         private SpriteBatch spriteBatch;
         private Texture2D texture;

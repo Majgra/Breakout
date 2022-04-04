@@ -15,6 +15,7 @@ namespace Breakout
         private Paddle paddle;
         private BoxSpawner boxSpawner;
         private Ball ball;
+        private PowerUps powerUps;
 
         private bool gameStarted = false;
 
@@ -38,11 +39,12 @@ namespace Breakout
 
             pixel = Content.Load<Texture2D>("pixel");
 
-            circle = new CircleCreator().Create(GraphicsDevice, 15);
+            circle = CircleCreator.Create(GraphicsDevice, 15);
 
             paddle = new Paddle(spriteBatch, pixel);
             boxSpawner = new BoxSpawner(spriteBatch, pixel);
             ball = new Ball(spriteBatch, circle);
+            powerUps = new PowerUps(spriteBatch, pixel);
         }
 
         protected override void Update(GameTime gameTime)
@@ -65,6 +67,8 @@ namespace Breakout
             paddle.Update(kstate, Window.ClientBounds.Width);
 
             CheckBall();
+
+            powerUps.ChangeRectangle();
 
             base.Update(gameTime);
         }
@@ -100,6 +104,7 @@ namespace Breakout
             paddle.Draw();
             boxSpawner.Draw();
             ball.Draw();
+            powerUps.Draw();
             spriteBatch.End();
            
             base.Draw(gameTime);

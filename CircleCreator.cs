@@ -6,7 +6,7 @@ namespace Breakout
 {
     public class CircleCreator
     {
-        public Texture2D Create(GraphicsDevice graphicsDevice, int radius)
+        public static Texture2D Create(GraphicsDevice graphicsDevice, int radius)
         {
             Texture2D texture = new Texture2D(graphicsDevice, radius, radius);
             Color[] colorData = new Color[radius*radius];
