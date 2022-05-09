@@ -10,8 +10,8 @@ namespace Breakout
         private const int startPositionX = 390;
         private const int startPositionY = 300;
         private Rectangle ball = new Rectangle(startPositionX, startPositionY, radius, radius);
-        private int x_speed = 1;
-        private int y_speed = 1;
+        private int x_speed = 2;
+        private int y_speed = 2;
 
         private SpriteBatch spriteBatch;
         private Texture2D texture;
@@ -39,6 +39,30 @@ namespace Breakout
             {
                 x_speed *= -1;
             }
+        }
+
+         public void BounceUp()
+        {
+            if(y_speed > 0)
+            {
+                y_speed *= -1;
+            } 
+        }
+
+        public void BounceLeft()
+        {
+            if(x_speed > 0)
+            {
+                x_speed *= -1;
+            } 
+        }
+
+        public void BounceRigth()
+        {
+            if(x_speed < 0)
+            {
+                x_speed *= -1;
+            } 
         }
 
         public void BounceVertical()

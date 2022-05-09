@@ -23,17 +23,13 @@ namespace Breakout
 
             for(int i = 0; i < 5; i++)
             {
-                AddRow(i);
-            } 
-        }
-
-        private void AddRow(int index)
-        {
-            for(int i = 0; i < 14; i++)
-            {
-                boxes.Add(new Box(spriteBatch, texture, new Vector2(indent + i * (Box.Width + spacing), height + index * (spacing + Box.Height))));
+                for(int j = 0; j < 14; j++)
+          	    {
+		            boxes.Add(new Box(spriteBatch, texture, new Vector2(indent + j * (Box.Width + spacing), height + i * (spacing + Box.Height))));
+                }
             }
         }
+
 
         public void Draw()
         {
@@ -43,14 +39,13 @@ namespace Breakout
             }
         }
 
-        public void CheckBall(Ball ball)
+        public Box CheckBall(Ball ball)
         {
             foreach(Box box in boxes)
             {
                 if(ball.GetRectangle().Intersects(box.GetRectangle()))
                 {
                     boxes.Remove(box);
-                    box.Remove();
 
                     if(box.IntersectsEdge(ball))
                     {
@@ -60,9 +55,12 @@ namespace Breakout
                     {
                         ball.BounceVertical();
                     }
-                    break;
+
+                    return box;
                 }
             }
+            
+            return null;
         }
     }
 }

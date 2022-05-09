@@ -40,12 +40,5 @@ namespace Breakout
         {
             spriteBatch.Draw(texture, box, Color.PaleGreen);
         }
-
-         public void Remove()
-        {
-            spriteBatch.Begin();
-            spriteBatch.Draw(texture, box, Color.CornflowerBlue);
-            spriteBatch.End();
-        }
     }
 }

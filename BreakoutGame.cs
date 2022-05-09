@@ -13,8 +13,10 @@ namespace Breakout
         private Texture2D circle;
 
         private Paddle paddle;
-        private BoxSpawner boxSpawner;
         private Ball ball;
+
+        private BoxSpawner boxSpawner;
+        private PowerUpsSpawner powerUpsSpawner;
 
         private bool gameStarted = false;
 
@@ -38,11 +40,13 @@ namespace Breakout
 
             pixel = Content.Load<Texture2D>("pixel");
 
-            circle = new CircleCreator().Create(GraphicsDevice, 15);
+            circle = CircleCreator.Create(GraphicsDevice, 15);
 
             paddle = new Paddle(spriteBatch, pixel);
-            boxSpawner = new BoxSpawner(spriteBatch, pixel);
             ball = new Ball(spriteBatch, circle);
+
+            boxSpawner = new BoxSpawner(spriteBatch, pixel);
+            powerUpsSpawner = new PowerUpsSpawner(spriteBatch, pixel);
         }
 
         protected override void Update(GameTime gameTime)
@@ -66,6 +70,8 @@ namespace Breakout
 
             CheckBall();
 
+            powerUpsSpawner.Update();
+
             base.Update(gameTime);
         }
 
@@ -74,14 +80,16 @@ namespace Breakout
             //kolla om ball rör paddle och om ball är utanför skärmen.
             if(ball.GetRectangle().Intersects(paddle.GetRectangle()))
             {
-                if(paddle.IntersectsEdge(ball))
-                {
-                    ball.BounceHorizontal();
-                }
-                else
-                {
-                    ball.BounceVertical();
-                }
+                    ball.BounceUp();
+
+                    if(ball.GetRectangle().Center.X < paddle.GetRectangle().Center.X)
+                    {
+                        ball.BounceLeft();
+                    }
+                    else
+                    {
+                        ball.BounceRigth();
+                    }
             }
             
             if(ball.OutOfBounds(Window.ClientBounds.Height))
@@ -89,7 +97,10 @@ namespace Breakout
                 gameStarted = false;
             }
             
-            boxSpawner.CheckBall(ball);
+            Box removed = boxSpawner.CheckBall(ball);
+            
+            powerUpsSpawner.Spawn(removed);
+            
         }
 
         protected override void Draw(GameTime gameTime)
@@ -99,6 +110,7 @@ namespace Breakout
             spriteBatch.Begin();
             paddle.Draw();
             boxSpawner.Draw();
+            powerUpsSpawner.Draw();
             ball.Draw();
             spriteBatch.End();
            
