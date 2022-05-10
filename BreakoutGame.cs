@@ -14,6 +14,7 @@ namespace Breakout
 
         private Paddle paddle;
         private Ball ball;
+        // private PowerUps powerUps;
 
         private BoxSpawner boxSpawner;
         private PowerUpsSpawner powerUpsSpawner;
@@ -44,7 +45,7 @@ namespace Breakout
 
             paddle = new Paddle(spriteBatch, pixel);
             ball = new Ball(spriteBatch, circle);
-
+            
             boxSpawner = new BoxSpawner(spriteBatch, pixel);
             powerUpsSpawner = new PowerUpsSpawner(spriteBatch, pixel);
         }
@@ -112,6 +113,7 @@ namespace Breakout
             boxSpawner.Draw();
             powerUpsSpawner.Draw();
             ball.Draw();
+            // powerUps.Draw();
             spriteBatch.End();
            
             base.Draw(gameTime);
