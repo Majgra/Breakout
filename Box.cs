@@ -7,7 +7,7 @@ namespace Breakout
     public class Box
     {
         public static int Height = 30;
-        public static int Width = 80;
+        public static int Width = 74;
 
         private Rectangle box;
         private Rectangle boxRightEdge;

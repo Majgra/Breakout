@@ -7,11 +7,12 @@ namespace Breakout
     public class Ball
     {
         const int radius = 15;
-        private const int startPositionX = 390;
-        private const int startPositionY = 300;
-        private Rectangle ball = new Rectangle(startPositionX, startPositionY, radius, radius);
-        private int x_speed = 2;
-        private int y_speed = 2;
+        private int startPositionX = 390;
+        private int startPositionY = 300;
+        private Rectangle ball;
+
+        private int x_speed = 3;
+        private int y_speed = 3;
 
         private SpriteBatch spriteBatch;
         private Texture2D texture;
@@ -20,6 +21,16 @@ namespace Breakout
         {
             this.spriteBatch = spriteBatch;
             this.texture = texture;
+
+            ball = new Rectangle(startPositionX, startPositionY, radius, radius);
+        }
+
+        public Ball(SpriteBatch spriteBatch, Texture2D texture, int startPositionX, int startPositionY)
+        {
+            this.spriteBatch = spriteBatch;
+            this.texture = texture;
+
+            ball = new Rectangle(startPositionX, startPositionY, radius, radius);
         }
 
         public Rectangle GetRectangle()
@@ -30,6 +41,8 @@ namespace Breakout
         public void Update(int windowWidth)
         {
             Move();
+
+            OriginalSpeed();
 
             if(ball.Y <= 0)
             {
@@ -90,6 +103,45 @@ namespace Breakout
         {
             ball.X += x_speed;
             ball.Y += y_speed;
+        }
+
+        public void SlowDown()
+        {
+           ChangeSpeed(1);
+
+           counter = 0;
+        }
+
+        int counter = 0;
+        private void OriginalSpeed()
+        {
+            counter++;
+
+            if(counter > 500)
+            {
+                ChangeSpeed(3);
+            }
+        }
+
+        private void ChangeSpeed(int speed)
+        {
+            if(x_speed < 0)
+            {
+                x_speed = -speed;
+            }
+            else
+            {
+                x_speed = speed;
+            }
+
+            if(y_speed < 0)
+            {
+                y_speed = -speed;
+            }
+            else
+            {
+                y_speed = speed;
+            }
         }
 
         public void Draw()

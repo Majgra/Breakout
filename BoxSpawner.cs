@@ -10,7 +10,7 @@ namespace Breakout
         private List<Box> boxes = new List<Box>();
 
         private const int height = 100;
-        private const int indent = 20;
+        private const int indent = 7;
         private const int spacing = 5;
 
         private SpriteBatch spriteBatch;
@@ -23,12 +23,11 @@ namespace Breakout
 
             for(int i = 0; i < 5; i++)
             
-                for(int j = 0; j < 14; j++)
+                for(int j = 0; j < 10; j++)
           	    {
 		            boxes.Add(new Box(spriteBatch, texture, new Vector2(indent + j * (Box.Width + spacing), height + i * (spacing + Box.Height))));
                 }  
         }
-
 
         public void Draw()
         {

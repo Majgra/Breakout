@@ -27,16 +27,12 @@ namespace Breakout
                 int chanse = rand.Next(1, 6);
                 if(chanse == 2)
                 {
-                    powerUps.Add(new PowerUp(spriteBatch, texture, removed));
+                    powerUps.Add(new PowerUp(spriteBatch, texture, removed, true));
                 }
-            }
-        }
-
-        public void Draw()
-        {
-            foreach(PowerUp powerUp in powerUps)
-            {
-                powerUp.Draw();
+                else if(chanse == 3)
+                {
+                    powerUps.Add(new PowerUp(spriteBatch, texture, removed, false));
+                }
             }
         }
 
@@ -48,27 +44,27 @@ namespace Breakout
             }
         }
 
-        public void CheckBall(Ball ball)
+        public PowerUp CheckPowerUp(Paddle paddle)
         {
-            // foreach(Box box in boxes)
-            // {
-            //     if(ball.GetRectangle().Intersects(box.GetRectangle()))
-            //     {
-            //         boxes.Remove(box);
-            //         box.Remove();
+            foreach(PowerUp powerUp in powerUps)
+            {
+                if(powerUp.GetRectangle().Intersects(paddle.GetRectangle()))
+                {
+                    powerUps.Remove(powerUp);
 
-            //         if(box.IntersectsEdge(ball))
-            //         {
-            //             ball.BounceHorizontal();
-            //         }   
-            //         else
-            //         {
-            //             ball.BounceVertical();
-            //         }
+                    return powerUp;
+                }
+            }
 
-            //         break;
-            //     }
-            // }
+            return null;
+        }
+
+         public void Draw()
+        {
+            foreach(PowerUp powerUp in powerUps)
+            {
+                powerUp.Draw();
+            }
         }
     }
 }

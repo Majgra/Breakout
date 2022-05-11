@@ -7,8 +7,7 @@ namespace Breakout
     public class Paddle
     {
         private Rectangle paddle = new Rectangle(325, 440, 150, 10);
-      
-
+        
         private SpriteBatch spriteBatch; 
         private Texture2D texture;
 
@@ -46,14 +45,6 @@ namespace Breakout
             {
                 paddle.X = 0;
             }
-        }
-
-         public bool IntersectsEdge(Ball ball)
-        {
-            Rectangle paddleRightEdge = new Rectangle((int)paddle.X + paddle.Width, (int)paddle.Y, 0, paddle.Height);
-            Rectangle paddleLeftEdge = new Rectangle((int)paddle.X, (int)paddle.Y, 0, paddle.Height);
-
-            return ball.GetRectangle().Intersects(paddleRightEdge) || ball.GetRectangle().Intersects(paddleLeftEdge);
         }
 
         public void Draw()
