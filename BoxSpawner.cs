@@ -16,17 +16,28 @@ namespace Breakout
         private SpriteBatch spriteBatch;
         private Texture2D texture;
 
+        public bool AllBoxesDestroyed()
+        {
+            return boxes.Count == 0;
+        }
+
         public BoxSpawner(SpriteBatch spriteBatch, Texture2D texture)
         {
             this.spriteBatch = spriteBatch;
             this.texture = texture;
+        }
 
-            for(int i = 0; i < 5; i++)
+        public void Spawn(int level)
+        {
+            boxes.Clear();
             
+            for(int i = 0; i < level; i++)
+            {
                 for(int j = 0; j < 10; j++)
           	    {
 		            boxes.Add(new Box(spriteBatch, texture, new Vector2(indent + j * (Box.Width + spacing), height + i * (spacing + Box.Height))));
                 }  
+            }
         }
 
         public void Draw()

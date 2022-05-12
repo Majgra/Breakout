@@ -11,6 +11,7 @@ namespace Breakout
 
         private Texture2D pixel;
         private Texture2D circle;
+        private SpriteFont gameOverFont;
 
         private Paddle paddle;
 
@@ -19,6 +20,8 @@ namespace Breakout
         private PowerUpsSpawner powerUpsSpawner;
 
         private bool gameStarted = false;
+        private bool gameOver = false;
+        private int gameLevel = 1;
 
         public BreakoutGame()
         {
@@ -39,13 +42,14 @@ namespace Breakout
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             pixel = Content.Load<Texture2D>("pixel");
-
             circle = CircleCreator.Create(GraphicsDevice, 15);
-
             paddle = new Paddle(spriteBatch, pixel);
+
+            gameOverFont = Content.Load<SpriteFont>("gameOver");
 
             ballSpawner = new BallSpawner(spriteBatch, circle);
             boxSpawner = new BoxSpawner(spriteBatch, pixel);
+            boxSpawner.Spawn(gameLevel);
             powerUpsSpawner = new PowerUpsSpawner(spriteBatch, pixel);
         }
 
@@ -58,14 +62,38 @@ namespace Breakout
             
             if(kstate.IsKeyDown(Keys.Space))
             {
-                gameStarted = true;
+                if(gameOver)
+                {
+                    gameOver = false;
+                }
+                else
+                {
+                    gameStarted = true;
+                }
             }
             
             if(gameStarted)
             {
-                ballSpawner.Update(Window.ClientBounds.Width);
+                ballSpawner.Update(gameTime, Window.ClientBounds.Width);
 
                 gameStarted = ballSpawner.CheckBalls(paddle, Window.ClientBounds.Height, boxSpawner, powerUpsSpawner);
+                gameOver = !gameStarted;
+
+                if(boxSpawner.AllBoxesDestroyed())
+                {
+                   gameStarted = false;
+                   gameLevel++;
+                   boxSpawner.Spawn(gameLevel); 
+                   powerUpsSpawner.Reset();
+                   ballSpawner.Reset();
+                }
+                else if(gameOver)
+                {
+                    gameLevel = 1;
+                    boxSpawner.Spawn(gameLevel);
+                    powerUpsSpawner.Reset();
+                    ballSpawner.Reset();
+                }
             }
 
             paddle.Update(kstate, Window.ClientBounds.Width);
@@ -88,14 +116,30 @@ namespace Breakout
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            if(!gameOver)
+            {
+                GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
-            paddle.Draw();
-            boxSpawner.Draw();
-            powerUpsSpawner.Draw();
-            ballSpawner.Draw();
-            spriteBatch.End();
+                spriteBatch.Begin();
+                paddle.Draw();
+
+                boxSpawner.Draw();
+                powerUpsSpawner.Draw();
+                ballSpawner.Draw();
+                
+                spriteBatch.End();
+            }
+            else
+            {
+                GraphicsDevice.Clear(Color.Black);
+
+                spriteBatch.Begin();
+
+                spriteBatch.DrawString(gameOverFont, "GAME OVER", new Vector2(40, 160), Color.Red);
+            
+                spriteBatch.End();
+            }
+           
            
             base.Draw(gameTime);
         }

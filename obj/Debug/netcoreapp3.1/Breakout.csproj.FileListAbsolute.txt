@@ -73,3 +73,4 @@ C:\Users\Admin\Documents\GitHub\Breakout\obj\Debug\netcoreapp3.1\Breakout.csproj
 C:\Users\Admin\Documents\GitHub\Breakout\obj\Debug\netcoreapp3.1\Breakout.dll
 C:\Users\Admin\Documents\GitHub\Breakout\obj\Debug\netcoreapp3.1\Breakout.pdb
 C:\Users\Admin\Documents\GitHub\Breakout\obj\Debug\netcoreapp3.1\Breakout.genruntimeconfig.cache
+C:\Users\Cracker\Documents\GitHub\Breakout\bin\Debug\netcoreapp3.1\Content\gameOver.xnb

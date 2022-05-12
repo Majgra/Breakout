@@ -36,6 +36,11 @@ namespace Breakout
             }
         }
 
+        public void Reset()
+        {
+            powerUps.Clear();
+        }
+
         public void Update()
         {
             foreach(PowerUp powerUp in powerUps)

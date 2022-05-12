@@ -19,11 +19,21 @@ namespace Breakout
             balls.Add(new Ball(spriteBatch, circle));
         }
 
-        public void Update(int windowWidth)
+        public void Reset()
+        {
+            for(int i = balls.Count - 1; i > 0; i--)
+            {
+                balls.RemoveAt(i);
+            }
+
+            balls[0].Reset();
+        }
+
+        public void Update(GameTime gameTime, int windowWidth)
         {
             foreach(Ball ball in balls)
             {
-                ball.Update(windowWidth);
+                ball.Update(gameTime, windowWidth);
             }
         }
 
@@ -43,6 +53,8 @@ namespace Breakout
             balls.Add(ball);
         }
 
+        //Kollar om bollen träffar något
+        //returnerar false om alla bollar trillat ut
         public bool CheckBalls(Paddle paddle, int windowHeight, BoxSpawner boxSpawner, PowerUpsSpawner powerUpsSpawner)
         {
             for(int i = balls.Count - 1; i >= 0; i--)
@@ -51,20 +63,23 @@ namespace Breakout
 
                 if(ball.GetRectangle().Intersects(paddle.GetRectangle()))
                 {
-                    ball.BounceUp();
+                    ball.BounceOnPaddle(paddle);
 
-                    if(ball.GetRectangle().Center.X < paddle.GetRectangle().Center.X)
-                    {
-                        ball.BounceLeft();
-                    }
-                    else
-                    {
-                        ball.BounceRigth();
-                    }
+                    // ball.BounceUp();
+
+                    // if(ball.GetRectangle().Center.X < paddle.GetRectangle().Center.X)
+                    // {
+                    //     ball.BounceLeft();
+                    // }
+                    // else
+                    // {
+                    //     ball.BounceRigth();
+                    // }
                 }
             
                 if(ball.OutOfBounds(windowHeight))
                 {
+                    //en boll ska alltid finnas
                     if(balls.Count == 1)
                     {
                         return false;
