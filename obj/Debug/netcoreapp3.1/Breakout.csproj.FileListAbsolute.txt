@@ -74,3 +74,10 @@ C:\Users\Admin\Documents\GitHub\Breakout\obj\Debug\netcoreapp3.1\Breakout.dll
 C:\Users\Admin\Documents\GitHub\Breakout\obj\Debug\netcoreapp3.1\Breakout.pdb
 C:\Users\Admin\Documents\GitHub\Breakout\obj\Debug\netcoreapp3.1\Breakout.genruntimeconfig.cache
 C:\Users\Cracker\Documents\GitHub\Breakout\bin\Debug\netcoreapp3.1\Content\gameOver.xnb
+C:\Users\Cracker\Documents\GitHub\Breakout\bin\Debug\netcoreapp3.1\Content\bigFont.xnb
+C:\Users\Cracker\Documents\GitHub\Breakout\bin\Debug\netcoreapp3.1\Content\smallFont.xnb
+C:\Users\Cracker\Documents\GitHub\Breakout\bin\Debug\netcoreapp3.1\Content\Heart.xnb
+C:\Users\Cracker\Documents\GitHub\Breakout\bin\Debug\netcoreapp3.1\Content\miniFont.xnb
+C:\Users\Cracker\Documents\GitHub\Breakout\bin\Debug\netcoreapp3.1\Content\ButtonsSmall.xnb
+C:\Users\Cracker\Documents\GitHub\Breakout\bin\Debug\netcoreapp3.1\Content\SpaceSmall.xnb
+C:\Users\Cracker\Documents\GitHub\Breakout\bin\Debug\netcoreapp3.1\Content\microFont.xnb

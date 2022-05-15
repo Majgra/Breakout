@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace Breakout
 {
@@ -10,17 +9,16 @@ namespace Breakout
 
         private int x_speed = 0;
         private int y_speed = 2;
-
         private SpriteBatch spriteBatch;
         private Texture2D texture;
 
-        public bool IsSlowdown;
+        public string PowerUpType;
 
-        public PowerUp(SpriteBatch spriteBatch, Texture2D texture, Box removed, bool isSlowdown)
+        public PowerUp(SpriteBatch spriteBatch, Texture2D texture, Box removed, string powerUpType)
         {
             this.spriteBatch = spriteBatch;
             this.texture = texture;
-            this.IsSlowdown = isSlowdown;
+            this.PowerUpType = powerUpType;
 
             powerUp = new Rectangle(removed.GetRectangle().Center.X, removed.GetRectangle().Center.Y, 15, 15);
         }
@@ -36,10 +34,9 @@ namespace Breakout
             powerUp.Y += y_speed;
         }
 
+        //Ritar powerupen i regnbågens färger
         int colors = 0;
-
         int ColorSpeed = 10;
-
         public void Draw()
         {
             if (colors >= 0 && colors < ColorSpeed)

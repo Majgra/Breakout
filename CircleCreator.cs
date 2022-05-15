@@ -1,9 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace Breakout
 {
+    //Taget från https://stackoverflow.com/questions/2519304/draw-simple-circle-in-xna 
     public class CircleCreator
     {
         public static Texture2D Create(GraphicsDevice graphicsDevice, int radius)

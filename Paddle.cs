@@ -22,6 +22,7 @@ namespace Breakout
             return paddle;
         }
 
+        //Flyttar paddeln
         public void Update(KeyboardState kstate, int windowWidth)
         {
             if (kstate.IsKeyDown(Keys.D) || kstate.IsKeyDown(Keys.Right))

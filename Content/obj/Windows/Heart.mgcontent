@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/Cracker/Documents/GitHub/Breakout/Content/pixel.png</SourceFile>
-  <SourceTime>2022-03-28T03:55:01.7372884+02:00</SourceTime>
-  <DestFile>C:/Users/Cracker/Documents/GitHub/Breakout/Content/bin/Windows/Content/pixel.xnb</DestFile>
-  <DestTime>2022-05-15T18:38:22.0507194+02:00</DestTime>
+  <SourceFile>C:/Users/Cracker/Documents/GitHub/Breakout/Content/Heart.png</SourceFile>
+  <SourceTime>2022-05-13T02:40:20.5531938+02:00</SourceTime>
+  <DestFile>C:/Users/Cracker/Documents/GitHub/Breakout/Content/bin/Windows/Heart.xnb</DestFile>
+  <DestTime>2022-05-13T02:41:46.4423439+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

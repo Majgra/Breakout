@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace Breakout
 {
@@ -23,6 +22,8 @@ namespace Breakout
             this.texture = texture;
 
             box = new Rectangle((int)position.X, (int)position.Y, Width, Height);
+
+            //Kanter för bollen så den kan studsa åt sidan
             boxRightEdge = new Rectangle((int)box.X + box.Width, (int)box.Y + 2, 0, box.Height - 6);
             boxLeftEdge = new Rectangle((int)box.X, (int)box.Y + 3, 0, box.Height - 6);
         } 

@@ -1,6 +1,4 @@
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System;
 
@@ -19,6 +17,7 @@ namespace Breakout
             this.texture = texture;
         }
 
+        //Spawnar en powerup där boxen försvann
         public void Spawn(Box removed)
         {
             if(removed != null)
@@ -27,11 +26,11 @@ namespace Breakout
                 int chanse = rand.Next(1, 6);
                 if(chanse == 2)
                 {
-                    powerUps.Add(new PowerUp(spriteBatch, texture, removed, true));
+                    powerUps.Add(new PowerUp(spriteBatch, texture, removed, "Slow"));
                 }
                 else if(chanse == 3)
                 {
-                    powerUps.Add(new PowerUp(spriteBatch, texture, removed, false));
+                    powerUps.Add(new PowerUp(spriteBatch, texture, removed, "Extra"));
                 }
             }
         }
@@ -41,14 +40,7 @@ namespace Breakout
             powerUps.Clear();
         }
 
-        public void Update()
-        {
-            foreach(PowerUp powerUp in powerUps)
-            {
-                powerUp.Update();
-            }
-        }
-
+        //KOllar om powerupen träffar paddeln
         public PowerUp CheckPowerUp(Paddle paddle)
         {
             foreach(PowerUp powerUp in powerUps)
@@ -57,11 +49,21 @@ namespace Breakout
                 {
                     powerUps.Remove(powerUp);
 
+                    BreakoutGame.AddPoints(10);
+
                     return powerUp;
                 }
             }
 
             return null;
+        }
+
+        public void Update()
+        {
+            foreach(PowerUp powerUp in powerUps)
+            {
+                powerUp.Update();
+            }
         }
 
          public void Draw()

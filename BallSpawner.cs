@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
 namespace Breakout
@@ -21,6 +20,7 @@ namespace Breakout
 
         public void Reset()
         {
+            //Tar bort alla utom en boll
             for(int i = balls.Count - 1; i > 0; i--)
             {
                 balls.RemoveAt(i);
@@ -45,7 +45,7 @@ namespace Breakout
             }
         }
 
-        public void Split(PowerUp powerUp)
+        public void ExtraBall(PowerUp powerUp)
         {
             Ball ball = new Ball(spriteBatch, circle, powerUp.GetRectangle().X, powerUp.GetRectangle().Y);
 
@@ -54,8 +54,8 @@ namespace Breakout
         }
 
         //Kollar om bollen träffar något
-        //returnerar false om alla bollar trillat ut
-        public bool CheckBalls(Paddle paddle, int windowHeight, BoxSpawner boxSpawner, PowerUpsSpawner powerUpsSpawner)
+        //Returnerar false om alla bollar trillat ut
+        public bool CheckBalls(Paddle paddle, int windowHeight, BoxSpawner boxSpawner, PowerUpsSpawner powerUpsSpawner, HeartSpawner heartSpawner)
         {
             for(int i = balls.Count - 1; i >= 0; i--)
             {
@@ -64,17 +64,6 @@ namespace Breakout
                 if(ball.GetRectangle().Intersects(paddle.GetRectangle()))
                 {
                     ball.BounceOnPaddle(paddle);
-
-                    // ball.BounceUp();
-
-                    // if(ball.GetRectangle().Center.X < paddle.GetRectangle().Center.X)
-                    // {
-                    //     ball.BounceLeft();
-                    // }
-                    // else
-                    // {
-                    //     ball.BounceRigth();
-                    // }
                 }
             
                 if(ball.OutOfBounds(windowHeight))
@@ -93,6 +82,8 @@ namespace Breakout
                 Box removed = boxSpawner.CheckBall(ball);
             
                 powerUpsSpawner.Spawn(removed);
+
+                heartSpawner.CheckHeart(ball);
             }
 
             return true;

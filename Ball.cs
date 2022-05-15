@@ -1,23 +1,19 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace Breakout
 {
+    //ideer lånade från https://www.informit.com/articles/article.aspx?p=2180417&seqNum=2
     public class Ball
     {
         const int radius = 15;
-        private Vector2 startDirection = new Vector2(0.707f, -0.707f);
         private int startPositionX = 390;
-        private int startPositionY = 300;
+        private int startPositionY = 420;
         private Rectangle ball;
 
-        public float speed = 500;
-        public Vector2 direction = new Vector2(0.707f, -0.707f);
-
-
-        // private int x_speed = 4;
-        // private int y_speed = 4;
+        public float speed = 400;
+        public Vector2 direction;
+        private Vector2 startDirection = new Vector2(0.707f, -0.707f);
 
         private SpriteBatch spriteBatch;
         private Texture2D texture;
@@ -28,21 +24,24 @@ namespace Breakout
             this.texture = texture;
 
             ball = new Rectangle(startPositionX, startPositionY, radius, radius);
+            direction = startDirection;
         }
 
+        //Extra bollen spawnas på powerUpsens position
         public Ball(SpriteBatch spriteBatch, Texture2D texture, int startPositionX, int startPositionY)
         {
             this.spriteBatch = spriteBatch;
             this.texture = texture;
 
             ball = new Rectangle(startPositionX, startPositionY, radius, radius);
+            direction = startDirection;
         }
 
         public void Reset()
         {
             ball = new Rectangle(startPositionX, startPositionY, radius, radius);
-            //bollen ska inte vara slowed
-            counter = 500;
+
+            speed = 400;
             //bollen ska åka åt rätt håll
             direction = startDirection;
         }
@@ -56,24 +55,47 @@ namespace Breakout
         {    
             Move(gameTime);
 
-            OriginalSpeed();
+            Slowedtime();
 
             if(ball.Y <= 0)
             {
                 direction.Y *= -1;
-               // y_speed *= -1;
             }
             if(ball.X <= 0 || ball.X >= windowWidth - radius)
             {
                 direction.X *= -1;
-                //x_speed *= -1;
             }
         }
 
-        public void BounceOnPaddle(Paddle paddle){
-            //här måste vi fixa hur bollen ska studsa
-            BounceUp();
+        //Tagit från länken ovan
+        public void BounceOnPaddle(Paddle paddle)
+        {
+            // Reflect based on which part of the paddle is hit
+                   
+            // Distance from the leftmost to rightmost part of the paddle
+            float dist = paddle.GetRectangle().Width + radius * 2;
+            // Where within this distance the ball is at
+            float ballLocation = ball.X - (paddle.GetRectangle().X - radius - paddle.GetRectangle().Width / 2);
+            // Percent between leftmost and rightmost part of paddle
+            float pct = ballLocation / dist;
+            
+            // By default, set the normal to "up"
+            Vector2 normal = -1.0f * Vector2.UnitY;
+            if (pct < 0.33f)
+            {
+                normal = new Vector2(-0.196f, -0.981f);
+            }
+            else if (pct > 0.66f)
+            {
+                normal = new Vector2(0.196f, -0.981f);
+            }
 
+            direction = Vector2.Reflect(direction, normal);
+            
+            //Tvinga den att studsa uppåt
+            BounceUp();
+            
+            //Studsa åt höger om träff på högersidan av paddeln och tvärtom
             if(GetRectangle().Center.X < paddle.GetRectangle().Center.X)
             {
                 BounceLeft();
@@ -86,67 +108,36 @@ namespace Breakout
 
         public void BounceUp()
         {
-            // if(y_speed > 0)
-            // {
-            //     y_speed *= -1;
-            // } 
-
             if(direction.Y > 0)
             {
                 direction.Y *= -1;
             } 
         }
 
-        public void BounceDown()
+        private void BounceLeft()
         {
-            // if(y_speed < 0)
-            // {
-            //     y_speed *= -1;
-            // } 
-
-            if(direction.Y < 0)
-            {
-                direction.Y *= -1;
-            } 
-        }
-
-        public void BounceLeft()
-        {
-            // if(x_speed > 0)
-            // {
-            //     x_speed *= -1;
-            // } 
-
             if(direction.X > 0)
             {
                 direction.X *= -1;
             } 
         }
 
-        public void BounceRigth()
+        private void BounceRigth()
         {
-            // if(x_speed < 0)
-            // {
-            //     x_speed *= -1;
-            // } 
-
-             if(direction.X < 0)
+            if(direction.X < 0)
             {
                 direction.X *= -1;
             } 
         }
-
+        
         public void BounceVertical()
-        {
-           //y_speed *= -1;
-            
+        {            
             direction.Y *= -1;
         }
 
         public void BounceHorizontal()
         {
             direction.X *= -1;
-          //  x_speed *= -1;
         }
 
         public bool OutOfBounds(int windowHeight)
@@ -164,9 +155,6 @@ namespace Breakout
 
         private void Move(GameTime gameTime)
         {
-        //     ball.X += x_speed;
-        //     ball.Y += y_speed;
-
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             Vector2 position = direction * speed * deltaTime;
 
@@ -176,43 +164,20 @@ namespace Breakout
 
         public void SlowDown()
         {
-          // ChangeSpeed(1);
             speed = 250;
             counter = 0;
         }
 
         int counter = 0;
-        private void OriginalSpeed()
+        private void Slowedtime()
         {
             counter++;
 
-            if(counter > 500)
+            if(counter >= 500)
             {
-                speed = 500;
-                //ChangeSpeed(3);
+                speed = 400;
             }
         }
-
-        // private void ChangeSpeed(int speed)
-        // {
-        //     if(x_speed < 0)
-        //     {
-        //         x_speed = -speed;
-        //     }
-        //     else
-        //     {
-        //         x_speed = speed;
-        //     }
-
-        //     if(y_speed < 0)
-        //     {
-        //         y_speed = -speed;
-        //     }
-        //     else
-        //     {
-        //         y_speed = speed;
-        //     }
-        // }
 
         public void Draw()
         {
