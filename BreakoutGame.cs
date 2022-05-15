@@ -203,6 +203,34 @@ namespace Breakout
             base.Update(gameTime);
         }
 
+        //Taget från http://www.xnadevelopment.com/tutorials/fadeinfadeout/FadeInFadeOut.shtml
+        int mAlphaValue = 1;
+        int mFadeIncrement = 3;
+        double mFadeDelay = .01;
+        private void Fade(GameTime gameTime)
+        {
+             mFadeDelay -= gameTime.ElapsedGameTime.TotalSeconds;
+ 
+            //If the Fade delays has dropped below zero, then it is time to 
+            //fade in/fade out the image a little bit more.
+            if (mFadeDelay <= 0)
+            {
+                //Reset the Fade delay
+                mFadeDelay = .01;
+ 
+                //Increment/Decrement the fade value for the image
+                mAlphaValue += mFadeIncrement;
+ 
+                //If the AlphaValue is equal or above the max Alpha value or
+                //has dropped below or equal to the min Alpha value, then 
+                //reverse the fade
+                if (mAlphaValue >= 255 || mAlphaValue <= 0)
+                {
+                    mFadeIncrement *= -1;
+                }
+            }
+        }
+
         protected override void Draw(GameTime gameTime)
         {
             if(gameMenuScreen)
@@ -273,33 +301,6 @@ namespace Breakout
                 spriteBatch.End();
             }
             base.Draw(gameTime);
-        }
-
-        int mAlphaValue = 1;
-        int mFadeIncrement = 3;
-        double mFadeDelay = .01;
-        private void Fade(GameTime gameTime)
-        {
-             mFadeDelay -= gameTime.ElapsedGameTime.TotalSeconds;
- 
-            //If the Fade delays has dropped below zero, then it is time to 
-            //fade in/fade out the image a little bit more.
-            if (mFadeDelay <= 0)
-            {
-                //Reset the Fade delay
-                mFadeDelay = .01;
- 
-                //Increment/Decrement the fade value for the image
-                mAlphaValue += mFadeIncrement;
- 
-                //If the AlphaValue is equal or above the max Alpha value or
-                //has dropped below or equal to the min Alpha value, then 
-                //reverse the fade
-                if (mAlphaValue >= 255 || mAlphaValue <= 0)
-                {
-                    mFadeIncrement *= -1;
-                }
-            }
         }
     }
 }
