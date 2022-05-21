@@ -7,11 +7,12 @@ namespace Breakout
     {
         private Rectangle powerUp;
 
-        private int x_speed = 0;
-        private int y_speed = 2;
         private SpriteBatch spriteBatch;
         private Texture2D texture;
 
+        private int y_speed = 2;
+
+        //Säger om det är en slow eller extra boll
         public string PowerUpType;
 
         public PowerUp(SpriteBatch spriteBatch, Texture2D texture, Box removed, string powerUpType)
@@ -20,6 +21,7 @@ namespace Breakout
             this.texture = texture;
             this.PowerUpType = powerUpType;
 
+            //powerupen spawnas i boxen som förstördes 
             powerUp = new Rectangle(removed.GetRectangle().Center.X, removed.GetRectangle().Center.Y, 15, 15);
         }
 
@@ -30,7 +32,6 @@ namespace Breakout
 
         public void Update()
         {
-            powerUp.X += x_speed;
             powerUp.Y += y_speed;
         }
 

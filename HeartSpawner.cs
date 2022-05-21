@@ -4,6 +4,7 @@ using System;
 
 namespace Breakout
 {
+    //Spawnar ett hjärt bakom någon box för level 4 och uppåt
     public class HeartSpawner
     {
         private SpriteBatch spriteBatch;

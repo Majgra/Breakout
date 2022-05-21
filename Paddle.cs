@@ -38,6 +38,7 @@ namespace Breakout
                 return;
             }
 
+            //Gör så att paddeln inte åker utanför 
             if (paddle.X > windowWidth - paddle.Width)
             {
                 paddle.X = windowWidth - paddle.Width;

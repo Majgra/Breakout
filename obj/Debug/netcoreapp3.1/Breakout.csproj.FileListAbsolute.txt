@@ -81,3 +81,5 @@ C:\Users\Cracker\Documents\GitHub\Breakout\bin\Debug\netcoreapp3.1\Content\miniF
 C:\Users\Cracker\Documents\GitHub\Breakout\bin\Debug\netcoreapp3.1\Content\ButtonsSmall.xnb
 C:\Users\Cracker\Documents\GitHub\Breakout\bin\Debug\netcoreapp3.1\Content\SpaceSmall.xnb
 C:\Users\Cracker\Documents\GitHub\Breakout\bin\Debug\netcoreapp3.1\Content\microFont.xnb
+C:\Users\Cracker\Documents\GitHub\Breakout\bin\Debug\netcoreapp3.1\Content\LeftRightButtons.xnb
+C:\Users\Cracker\Documents\GitHub\Breakout\bin\Debug\netcoreapp3.1\Content\SpaceButton.xnb

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Breakout
 {
-    //ideer lånade från https://www.informit.com/articles/article.aspx?p=2180417&seqNum=2
+    //ideer om hur bollen rör sig är lånade från https://www.informit.com/articles/article.aspx?p=2180417&seqNum=2
     public class Ball
     {
         const int radius = 15;
@@ -18,6 +18,7 @@ namespace Breakout
         private SpriteBatch spriteBatch;
         private Texture2D texture;
 
+        //Orginal bollen startas på vanliga positionen
         public Ball(SpriteBatch spriteBatch, Texture2D texture)
         {
             this.spriteBatch = spriteBatch;
@@ -27,7 +28,7 @@ namespace Breakout
             direction = startDirection;
         }
 
-        //Extra bollen spawnas på powerUpsens position
+        //Extra bollen spawnas på powerupens position
         public Ball(SpriteBatch spriteBatch, Texture2D texture, int startPositionX, int startPositionY)
         {
             this.spriteBatch = spriteBatch;
@@ -168,6 +169,7 @@ namespace Breakout
             counter = 0;
         }
 
+        //Bollen ska gå sakta i 500 spel tid
         int counter = 0;
         private void Slowedtime()
         {

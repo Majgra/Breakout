@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Breakout
 {
+    //En box som bollen kan träffa
     public class Box
     {
         public static int Height = 30;

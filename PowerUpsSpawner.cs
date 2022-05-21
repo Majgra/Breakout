@@ -4,6 +4,7 @@ using System;
 
 namespace Breakout
 {
+    //Har hand om powerupsen
     public class PowerUpsSpawner
     {
         private List<PowerUp> powerUps = new List<PowerUp>();
@@ -22,6 +23,7 @@ namespace Breakout
         {
             if(removed != null)
             {
+                //En tredjedels chans att en powerup spawnas
                 Random rand = new Random();
                 int chanse = rand.Next(1, 6);
                 if(chanse == 2)
@@ -40,7 +42,7 @@ namespace Breakout
             powerUps.Clear();
         }
 
-        //KOllar om powerupen träffar paddeln
+        //Kollar om powerupen träffar paddeln
         public PowerUp CheckPowerUp(Paddle paddle)
         {
             foreach(PowerUp powerUp in powerUps)

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace Breakout
 {
+    //Har hand om bollarna
     public class BallSpawner
     {
         private List<Ball> balls = new List<Ball>();
@@ -18,6 +19,7 @@ namespace Breakout
             balls.Add(new Ball(spriteBatch, circle));
         }
 
+        //Återställer bollen/bollarna om man dött eller klarat banan
         public void Reset()
         {
             //Tar bort alla utom en boll
@@ -37,6 +39,7 @@ namespace Breakout
             }
         }
 
+        //powerup sakna ner
         public void SlowDown()
         {
             foreach(Ball ball in balls)
@@ -45,6 +48,7 @@ namespace Breakout
             }
         }
 
+        //powerup extra boll
         public void ExtraBall(PowerUp powerUp)
         {
             Ball ball = new Ball(spriteBatch, circle, powerUp.GetRectangle().X, powerUp.GetRectangle().Y);
@@ -57,6 +61,7 @@ namespace Breakout
         //Returnerar false om alla bollar trillat ut
         public bool CheckBalls(Paddle paddle, int windowHeight, BoxSpawner boxSpawner, PowerUpsSpawner powerUpsSpawner, HeartSpawner heartSpawner)
         {
+            //Loppar baklängelse för att vi ska ta bort bollar
             for(int i = balls.Count - 1; i >= 0; i--)
             {
                 Ball ball = balls[i];
@@ -68,7 +73,7 @@ namespace Breakout
             
                 if(ball.OutOfBounds(windowHeight))
                 {
-                    //en boll ska alltid finnas
+                    //Tar inte bort sista bollen för nästa startning
                     if(balls.Count == 1)
                     {
                         return false;
@@ -78,10 +83,11 @@ namespace Breakout
                         balls.Remove(ball);
                     }
                 }
+
+                //kontrollerar om bollen träffar en box
+                Box removedBox = boxSpawner.CheckBall(ball);
             
-                Box removed = boxSpawner.CheckBall(ball);
-            
-                powerUpsSpawner.Spawn(removed);
+                powerUpsSpawner.Spawn(removedBox);
 
                 heartSpawner.CheckHeart(ball);
             }

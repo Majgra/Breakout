@@ -7,13 +7,17 @@
     <File>C:/Users/Cracker/Documents/GitHub/Breakout/Content/bigFont.spritefont</File>
     <File>C:/Users/Cracker/Documents/GitHub/Breakout/Content/ButtonsSmall.png</File>
     <File>C:/Users/Cracker/Documents/GitHub/Breakout/Content/Heart.png</File>
+    <File>C:/Users/Cracker/Documents/GitHub/Breakout/Content/LeftRightButtons.png</File>
     <File>C:/Users/Cracker/Documents/GitHub/Breakout/Content/microFont.spritefont</File>
     <File>C:/Users/Cracker/Documents/GitHub/Breakout/Content/miniFont.spritefont</File>
     <File>C:/Users/Cracker/Documents/GitHub/Breakout/Content/pixel.png</File>
     <File>C:/Users/Cracker/Documents/GitHub/Breakout/Content/smallFont.spritefont</File>
+    <File>C:/Users/Cracker/Documents/GitHub/Breakout/Content/SpaceButton.png</File>
     <File>C:/Users/Cracker/Documents/GitHub/Breakout/Content/SpaceSmall.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

@@ -4,10 +4,12 @@ using System.Collections.Generic;
 
 namespace Breakout
 {
+    //Har hand om alla boxar
     public class BoxSpawner
     {
         public List<Box> boxes = new List<Box>();
 
+        //Höjden, indrag från kanten, mellanrumen
         private const int height = 100;
         private const int indent = 7;
         private const int spacing = 5;

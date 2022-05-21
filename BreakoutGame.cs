@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Breakout
 {
+    //Huvudprogrammet
     public class BreakoutGame : Game
     {
         private GraphicsDeviceManager graphics;
@@ -11,9 +12,10 @@ namespace Breakout
 
         private Texture2D pixel;
         private Texture2D heart;
-        private Texture2D buttons;
-        private Texture2D space;
+        private Texture2D leftRightButtons;
+        private Texture2D spaceButton;
         private Texture2D circle;
+
         private SpriteFont bigFont;
         private SpriteFont smallFont;
         private SpriteFont miniFont;
@@ -23,16 +25,17 @@ namespace Breakout
         private Rectangle menuButton = new Rectangle(370, 350, 69, 30);
 
         private Paddle paddle;
-
         private BallSpawner ballSpawner;
         private BoxSpawner boxSpawner;
         private PowerUpsSpawner powerUpsSpawner;
         private HeartSpawner heartSpawner;
 
+        //Skärmar som ska visas
         private bool gameMenuScreen = true;
         private bool gameScreen = false;
         private bool gameOverScreen = false;
 
+        //Variabler som styr spelet
         private bool gameStarted = false;
         private int gameLevel = 1;
         private static int gameLives = 3;
@@ -60,8 +63,6 @@ namespace Breakout
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
@@ -69,18 +70,21 @@ namespace Breakout
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            //Bilder
             pixel = Content.Load<Texture2D>("pixel");
             heart = Content.Load<Texture2D>("Heart");
-            buttons = Content.Load<Texture2D>("ButtonsSmall");
-            space = Content.Load<Texture2D>("SpaceSmall");
-            circle = CircleCreator.Create(GraphicsDevice, 15);
-            paddle = new Paddle(spriteBatch, pixel);
+            leftRightButtons = Content.Load<Texture2D>("LeftRightButtons");
+            spaceButton = Content.Load<Texture2D>("SpaceButton");
 
+            //Fonter
             bigFont = Content.Load<SpriteFont>("bigFont");
             smallFont = Content.Load<SpriteFont>("smallFont");
             miniFont = Content.Load<SpriteFont>("miniFont");
             microFont = Content.Load<SpriteFont>("microFont");
-
+            
+            //Spelplanen
+            circle = CircleCreator.Create(GraphicsDevice, 15);
+            paddle = new Paddle(spriteBatch, pixel);
             ballSpawner = new BallSpawner(spriteBatch, circle);
             boxSpawner = new BoxSpawner(spriteBatch, pixel);
             boxSpawner.Spawn(gameLevel);
@@ -96,9 +100,13 @@ namespace Breakout
                 Exit();
 
             mousePressed = mousePressed || Mouse.GetState().LeftButton == ButtonState.Pressed;
+
             if(gameMenuScreen)
             {
+                //Ger en fade effekt på Breakout texten
                 Fade(gameTime);
+
+                //Används för att det ska bli ett klick med musen på knappen
                 if(mousePressed && Mouse.GetState().LeftButton == ButtonState.Released)
                 {
                     if(startButton.Contains(Mouse.GetState().Position))
@@ -117,6 +125,7 @@ namespace Breakout
 
             if(gameOverScreen)
             {
+                //Används för att det ska bli ett klick med musen på knappen
                 if(mousePressed && Mouse.GetState().LeftButton == ButtonState.Released)
                 {
                     if(menuButton.Contains(Mouse.GetState().Position))
@@ -132,31 +141,30 @@ namespace Breakout
             }
             mousePressed = false;
 
+            //Om mellanslag tryckts ner startars bollen/spelet
             KeyboardState kstate = Keyboard.GetState();
             if(kstate.IsKeyDown(Keys.Space))
             {
-                if(gameOverScreen)
-                {
-                    gameOverScreen = false;
-                }
-                else
-                {
-                    gameStarted = true;
-                }
+                gameStarted = true;
             }
             
             if(gameStarted)
             {
+                //Flyttar bollarna
                 ballSpawner.Update(gameTime, Window.ClientBounds.Width);
 
+                //kollar om bollen träffar nåt eller utanför spelplanen
                 bool lifeLost = !ballSpawner.CheckBalls(paddle, Window.ClientBounds.Height, boxSpawner, powerUpsSpawner, heartSpawner);
+                //Alla bollar utanför, förlorar ett liv
                 if(lifeLost)
                 {
                     gameLives--;
                     
                     gameStarted = false;
                     ballSpawner.Reset();
+                    powerUpsSpawner.Reset();
                     
+                    //Liven slut, spelet är över
                     if(gameLives == 0)
                     {
                         gameScreen = false;
@@ -175,6 +183,7 @@ namespace Breakout
                     ballSpawner.Reset();
                     heartSpawner.Spawn(boxSpawner, gameLevel);
                 }
+                //Visar gameover skärmen och nollställer spelet. 
                 else if(gameOverScreen)
                 {
                     gameLevel = 1;
@@ -188,7 +197,8 @@ namespace Breakout
             paddle.Update(kstate, Window.ClientBounds.Width);
 
             powerUpsSpawner.Update();
-
+            
+            //kontrollerar om powerupen har träffat paddeln
             PowerUp powerUp = powerUpsSpawner.CheckPowerUp(paddle);
 
             if(powerUp != null && powerUp.PowerUpType == "Slow")
@@ -241,11 +251,11 @@ namespace Breakout
                 spriteBatch.DrawString(bigFont, "Breakout", new Vector2(160, 100), new Color((byte)MathHelper.Clamp(mAlphaValue, 0, 0), (byte)MathHelper.Clamp(mAlphaValue, 35, 0), (byte)MathHelper.Clamp(mAlphaValue, 100, 255)));
                 spriteBatch.Draw(pixel, startButton, Color.CornflowerBlue);
                 spriteBatch.DrawString(smallFont, "Start", new Vector2(345, 250), Color.RoyalBlue);
-
-                spriteBatch.Draw(buttons, new Vector2(140, 340), Color.Black);
-                spriteBatch.Draw(space, new Vector2(420, 361), Color.Black);
+                
+                spriteBatch.Draw(leftRightButtons, new Vector2(190, 395), Color.Black);
+                spriteBatch.Draw(spaceButton, new Vector2(439, 395), Color.Black);
                 spriteBatch.DrawString(microFont, "Press space to start ball", new Vector2(453, 385), Color.Black);
-
+                spriteBatch.DrawString(microFont, "Move left or right with", new Vector2(215, 385), Color.Black);
 
                 spriteBatch.End();
             }
